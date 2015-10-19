@@ -1,0 +1,28 @@
+﻿
+
+PDP TBD
+ 
+ 
+PDP
+ 
+Mains
+power meter
+ 
+ 
+relay board
+STM32F030
+ 
+
+
+relay power
+add pch mosfet to control all relay power from processor
+ 
+ 
+voltage
+add zero crossing circuit
+ADC phase shift calibration 
+
+
+ 
+firmware
+calibrate V and I and power

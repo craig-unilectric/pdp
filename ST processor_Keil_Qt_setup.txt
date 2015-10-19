@@ -1,0 +1,49 @@
+﻿ST Setup
+
+
+
+
+Processor
+STM32F411VET6
+512 KB of Flash
+128 KB of RAM
+LQFP100 package
+
+
+Dev board
+STM32F411E-DISCO
+
+
+STM32F407VET6
+512 KB of Flash
+192 KB of RAM
+LQFP100 package
+
+
+Dev board
+STM32F4DISCOVERY
+
+
+
+
+STM32CubeMX
+download at bottom of page
+http://www.st.com/web/catalog/tools/FM147/CL1794/SC961/SS1533/PF259242?sc=stm32cube
+
+
+Keil MDK-ARM 
+Version 5.16
+free version allows 32k flash
+https://www.keil.com/demo/eval/arm.htm
+
+
+ST-Link USB driver signed for XP, Windows7, Windows8
+http://www.st.com/web/en/catalog/tools/FM147/SC1887/PF260219
+
+
+
+
+User interface
+Qt
+download open source for personal use
+http://www.qt.io/download-open-source/
