@@ -1,0 +1,61 @@
+IoTcam Host
+
+C:/IoTcam/host_deploy/host_deploy_9-18-2014/release/host.exe
+Thu Sep 18 09:56:23 2014
+
+---------------------------------
+USB comms
+Host USB-VCP Driver for USB Virtual COM Port
+Requires STMicroelectronics VCP drivers installed on host PC.
+---------------------------------
+UART comms
+115200-8-N-1
+Drives USB to UART bridges such as the SiLabs CP2102.
+No driver installion required, or check SiLabs site.
+---------------------------------
+I2C comms
+400000Hz
+Default I2C address - 0x4C, 7 bit, bit[6] msb.
+Host USB-I2C Driver for CP2112 USB-I2C Bridge
+Requires SLABHIDDevice.dll in dir with host.exe.
+Requires SLABHIDtoSMBus.dll in dir with host.exe.
+---------------------------------
+SPI comms
+1.5MHz max
+CPOL 1 (clk polarity active low)
+CPHA 1 (clk phase trailing edge)
+Clk rate 1.5MHz
+Host USB-SPI Driver for CP2130 USB-SPI Bridge
+Requires SLAB_USB_SPI.dll in dir with host.exe.
+---------------------------------
+Open USB channel
+
+-------------------
+Com ports found: 1
+
+Name: COM7
+Desc: STMicroelectronics Virtual COM Port
+Manu: STMicroelectronics.
+VID : 0x483
+PID : 0x5740
+
+IoTcam devices found: 1
+
+Name: COM7
+Desc: STMicroelectronics Virtual COM Port
+Manu: STMicroelectronics.
+VID : 0x483
+PID : 0x5740
+
+Opened: COM7
+
+-------------------
+
+
+Capture a bmp from device.
+167 mSec
+Rx 38400 bytes BMP_16
+1839520 bits per second
+Converted to 76800 bytes BMP_32
+Done
+

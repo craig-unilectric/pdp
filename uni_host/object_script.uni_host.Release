@@ -1,0 +1,17 @@
+INPUT(
+./release\.obj\main.o
+./release\.obj\mainwindow.o
+./release\.obj\qcustomplot.o
+./release\.obj\host.o
+./release\.obj\host_comms.o
+./release\.obj\usb_vcp.o
+./release\.obj\host_graph.o
+./release\.obj\pdp_command_c.o
+./release\.obj\fc_comport_c.o
+./release\.obj\host_pdp.o
+./release\.obj\host_relay.o
+./release\.obj\moc_mainwindow.o
+./release\.obj\moc_qcustomplot.o
+./release\.obj\moc_host.o
+./release\.obj\moc_usb_vcp.o
+);

@@ -1,0 +1,17 @@
+INPUT(
+./debug\.obj\main.o
+./debug\.obj\mainwindow.o
+./debug\.obj\qcustomplot.o
+./debug\.obj\host.o
+./debug\.obj\host_comms.o
+./debug\.obj\usb_vcp.o
+./debug\.obj\host_graph.o
+./debug\.obj\pdp_command_c.o
+./debug\.obj\fc_comport_c.o
+./debug\.obj\host_pdp.o
+./debug\.obj\host_relay.o
+./debug\.obj\moc_mainwindow.o
+./debug\.obj\moc_qcustomplot.o
+./debug\.obj\moc_host.o
+./debug\.obj\moc_usb_vcp.o
+);
