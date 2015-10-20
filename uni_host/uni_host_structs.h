@@ -22,18 +22,18 @@ user structs
 
 typedef struct
 {
-    // add dummy values for 32 bit alignment
-		uint8 				channel_number;
-    uint8       one;
+		// add dummy values for 32 bit alignment
+		//
+		uint8 			channel_number;
+		uint8       one;
     uint8       two;
     uint8       four;
-    uint8      	dummy_2;
-    uint8       three[8];
-		uint16      five;
-    uint16      six;
-    uint16      seven;
-    uint16      dummy_1;
-    uint32      val32;
+		//
+		float    		trip_level[16];
+		
+		//
+	
+	
 }PDP_Command_Struct;
 
 
@@ -48,14 +48,18 @@ typedef struct
 typedef struct
 {
 		// add dummy values for 32 bit alignment
-    float    		dc[16];
+		//
+		float    		dc[16];
     float    		pk[16];
     float     	rms[16];
     float     	real[16];
     float     	apparent[16];
     float     	pf[16];
+		float    		trip_level[16]; // to read back trip level
 		//
-    uint8      	relay_state[16];
+		uint8      	relay_state[16]; // save last state
+		//
+		float     	voltage_freq;
 		//
     uint8      	error;
 		uint8      	dummy_1;

@@ -75,9 +75,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			HAL_TIM_Base_Start(VOLTAGE_CYCLE_TIMER);
 
 
-		//SCOPE_2_TOGGLE();
+		SCOPE_1_TOGGLE();
 		
   }
+	
 	
 }
 //

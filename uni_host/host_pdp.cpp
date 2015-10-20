@@ -109,6 +109,7 @@ void Host::read_status_channel(uint8 channel)
     Log("");
     Log("     cycle time (mS): " + IntToStr(periodms));
     Log("     cycle freq (Hz): " + IntToStr(freq));
+    Log("     cycle freq from device (Hz): " + IntToStr(ps.voltage_freq));
     Log("     samples per cycle: " + IntToStr(ps.voltage_cycle_samples));
     Log("");
     Log("     debug1: " + IntToStr(ps.debug1));

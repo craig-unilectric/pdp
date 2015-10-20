@@ -185,10 +185,10 @@ uint32 timerclk = 2 * HAL_RCC_GetPCLK2Freq();
 
 #define VOLTAGE_ZERO_CROSSING_PIN			GPIO_PIN_10
 
-#define VOLTAGE_ADC_CHANNEL						1
+#define VOLTAGE_ADC_CHANNEL						0
 
 #define CYCLE_SAMPLES_MIN							800
-#define CYCLE_SAMPLES_DEFAULT					810
+#define CYCLE_SAMPLES_DEFAULT					811
 #define CYCLE_SAMPLES_MAX							820
 
 

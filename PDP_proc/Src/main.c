@@ -123,11 +123,21 @@ int main(void)
 	// 
 	// PDP command struct
 	//
+
+
+	//
+	// init Command struct
+	//
+
 	pc.channel_number = 0;
+	
+	for(i = 0;i < PDP_RELAY_CHANNELS;i++){
+		pc.trip_level[i] = 0.0;
+	}
 	
 
 	//
-	// init Status
+	// init Status struct
 	//
 
 	for(i = 0;i < PDP_RELAY_CHANNELS;i++){

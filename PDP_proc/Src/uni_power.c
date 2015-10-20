@@ -74,7 +74,7 @@ void transfer_metrics_to_status(void)
 	uint8* dest = (uint8*)&ps;
 	for(i = 0;i < sizeof(PDP_Status_Struct);i++){
 		dest[i] = src[i];
-	}
+	}	
 }
 //
 void transfer_buf(uint8* bufin, uint8* bufout, uint32 size)
@@ -422,19 +422,32 @@ void power_from_ADC(uint16* buf)
 	//
 	if(ic.enable){
 		
+		
+		ps_temp.voltage_freq = (float)(100000.0f/(float)ps_temp.voltage_cycle_time);
+		
+		
+		// for debug, read back trip levels
+		for(i = 0;i < PDP_RELAY_CHANNELS;i++){
+			ps_temp.trip_level[i] = pc.trip_level[i];
+		}
+	
+		
 		// output status struct
 		// transfer ps_temp to ps
 		// transfer status values to status output struct
 		transfer_metrics_to_status();
 		
-		// capture data beginning at cycle start
-		if(pc.channel_number == VOLTAGE_ADC_CHANNEL) cycle_start = vcycle_start;
-		else cycle_start = icycle_start;
-		index = (cycle_start * ADC_DMA_CHANNELS);
 		
 		// test for zero crossing or cycle length error before grabbing
 		if(!error){
 		
+			
+			// capture data beginning at cycle start
+			if(pc.channel_number == VOLTAGE_ADC_CHANNEL) cycle_start = vcycle_start;
+			else cycle_start = icycle_start;
+			index = (cycle_start * ADC_DMA_CHANNELS);
+
+			
 			// extract channel data from dma buf
 			// NA because later versions overwrite buf with filtered data
 			//transfer_bufin_to_channel_bufout(&buf[index], ADC_DMA_SAMPLES, pc.channel_number, cycle_length, adc_channel_buf, ADC_DMA_SAMPLES_PER_CHANNEL);
