@@ -99,24 +99,37 @@ void Host::read_status_channel(uint8 channel)
 
 
     Log("");
+    Log("     pk[" + IntToStr(i) + "]: " + IntToStr(ps.pk[i]));
     Log("     rms[" + IntToStr(i) + "]: " + IntToStr(ps.rms[i]));
+    Log("");
     Log("     real[" + IntToStr(i) + "]: " + IntToStr(ps.real[i]));
     Log("     apparent[" + IntToStr(i) + "]: " + IntToStr(ps.apparent[i]));
-    Log("     power factor[" + IntToStr(i) + "]: " + IntToStr(ps.pf[i]));
+    Log("     power factor[" + IntToStr(i) + "]: " + IntToStr(ps.power_factor[i]));
     Log("");
     Log("     dc[" + IntToStr(i) + "]: " + IntToStr(ps.dc[i]));
-    Log("     pk[" + IntToStr(i) + "]: " + IntToStr(ps.pk[i]));
     Log("");
     Log("     cycle time (mS): " + IntToStr(periodms));
-    Log("     cycle freq (Hz): " + IntToStr(freq));
-    Log("     cycle freq from device (Hz): " + IntToStr(ps.voltage_freq));
+    //Log("     cycle freq (Hz): " + IntToStr(freq));
+    Log("     cycle freq (Hz): " + IntToStr(ps.voltage_freq)); // cycle freq from device
+    Log("");
     Log("     samples per cycle: " + IntToStr(ps.voltage_cycle_samples));
     Log("");
     Log("     debug1: " + IntToStr(ps.debug1));
     Log("     debug2: " + IntToStr(ps.debug2));
     Log("");
-    if(ps.error) Log("*** error");
+    if(ps.voltage_cycle_length_error) Log("*** voltage_cycle_length_error");
     Log("");
+    Log("---- Command check ----");
+    Log("     trip_level[" + IntToStr(i) + "]: " + IntToStr(ps.trip_level[i]));
+    Log("     ical[" + IntToStr(i) + "]: " + IntToStr(ps.ical[i]));
+    Log("     vcal: " + IntToStr(ps.vcal));
+    Log("     vphase: " + IntToStr(ps.vphase));
+    Log("----");
+    Log("");
+
+
+
+
 
     ui->label_ctdc->setText(IntToStr(ps.dc[i]));
     ui->label_peak->setText(IntToStr(ps.pk[i]));
@@ -178,6 +191,7 @@ void Host::read_status(void)
 void Host::write_command(void)
 {
 
+    /*
     pc.one = 0x98;
     pc.two = 0x76;
     pc.three[0] = 0x54;
@@ -193,7 +207,7 @@ void Host::write_command(void)
     pc.six = 0x5678;
     pc.seven = 0x9876;
     pc.val32 = 0x12345678;
-
+    */
     pdp_write_command_struct();
 
 

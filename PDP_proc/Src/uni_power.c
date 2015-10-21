@@ -175,14 +175,15 @@ void power_from_ADC(uint16* buf)
 				best_offset = offset_new;
 			}
 		}
-		ps_temp.dc[channel] = (float)(offset_new); // *** calibrate
+		ps_temp.dc[channel] = (float)offset_new * ADC_VOLTS_PER_BIT;  // *** calibrate
+			
 	}
 	//---------------------------------------------------
 	//
 	// Find voltage zero crossings 
 	// to define one AC cycle
 	//
-	bool error = true;
+	bool cycle_error = true;
 	int16 val16i, prev;
 	bool cross_up = false;
 	bool cross_down = false;
@@ -243,7 +244,7 @@ void power_from_ADC(uint16* buf)
 					
 		if((val32 > CYCLE_SAMPLES_MIN) && (val32 < CYCLE_SAMPLES_MAX)){
 			cycle_length = val32;
-			error = false;
+			cycle_error = false;
 		}
 		//else cycle_length = 821; // dummy flag value for debug
 
@@ -260,19 +261,22 @@ void power_from_ADC(uint16* buf)
 	// good method for >300 samples
 	//
 		
-	// must be less than max_voltage_shift
-	uint32 v_phase_shift_samples_count = 100; // *** calibrate
-		
 	uint32 vcycle_start, vcycle_end;
 	uint32 icycle_start, icycle_end;
 
 	vcycle_start = cycle_start;
 	vcycle_end = cycle_end;
-		
+			
+	// must be less than max_voltage_shift
+	uint32 v_phase_shift_samples_count = ps_temp.vphase; //100; // *** calibrate, input from Site Controller
+	
 	// shift i to right to match delayed v
 	icycle_start = cycle_start - v_phase_shift_samples_count;
 	icycle_end = icycle_start + cycle_length;
-		
+	//icycle_start = vcycle_start;
+	//icycle_end = vcycle_end;
+	
+	
 	//---------------------------------------------------
 	//
 	// Shift voltage, for sparse samples
@@ -326,6 +330,8 @@ void power_from_ADC(uint16* buf)
 	uint32 sq_sum;
 	double ms;
 	double rms;
+	float ratio;
+	float vratio = pc.vcal * ADC_VOLTS_PER_BIT;
 		
 	for(channel = 0;channel < ADC_DMA_CHANNELS;channel++){
 		max = 0;	
@@ -346,7 +352,11 @@ void power_from_ADC(uint16* buf)
 			sq_sum += sq;	
 		}
 		// pk[]
-		ps_temp.pk[channel] = (float)max; // *** calibrate
+		
+		if(channel == VOLTAGE_ADC_CHANNEL) ratio = vratio;
+		else ratio = pc.ical[channel] * ADC_VOLTS_PER_BIT;
+		
+		ps_temp.pk[channel] = (float)max * ratio; // *** calibrate
 		
 		// rms[]
 		if(cycle_length > 0) ms = (double)sq_sum/(double)cycle_length;
@@ -356,15 +366,13 @@ void power_from_ADC(uint16* buf)
 		// sqrtf() - 30 cycles
 		// sqrt() - 60 cycles
 		rms = sqrtf(ms); 
-		
-		ps_temp.rms[channel] = (float)rms; // *** calibrate
+		ps_temp.rms[channel] = (float)rms * ratio; // *** calibrate
 			
 	}	
 	
 	//---------------------------------------------------
 	//
-	// Filtered
-	// power
+	// Power
 	// real, apparent, power factor
 	//
 	// P = real power = (Vinst * Iinst)  Watts
@@ -382,12 +390,18 @@ void power_from_ADC(uint16* buf)
 	int32 instp_sum;
 	double realp;
 	double apparentp;
+	float iratio;
+	
 
 	// TBD process current channels only
 	for(channel = 0;channel < ADC_DMA_CHANNELS;channel++){
 		j = vcycle_start; // phase shifted voltage index;
 		instp_sum = 0;
-		for(i = icycle_start;i < icycle_end;i++){
+		// v cycle or i cycle, using phase shifted voltage index
+		if(channel == VOLTAGE_ADC_CHANNEL) cycle_start = vcycle_start;
+		else cycle_start = icycle_start;
+		cycle_end = cycle_start + cycle_length;
+		for(i = cycle_start;i < cycle_end;i++){
 			index = channel + (i * ADC_DMA_CHANNELS);			
 			ival = (int16)dma_buf_filtered[index];
 			index = VOLTAGE_ADC_CHANNEL + (j * ADC_DMA_CHANNELS);			
@@ -401,17 +415,32 @@ void power_from_ADC(uint16* buf)
 			instp_sum += instp;
 		}
 		
+		
+
+		iratio = pc.ical[channel] * ADC_VOLTS_PER_BIT;
+	
+
 		// real
 		if(cycle_length > 0) realp = (double)instp_sum/(double)cycle_length;
 		else realp = 0.0;
+		
+		realp = realp * iratio * vratio;
 		ps_temp.real[channel] = (float)realp; // *** calibrate
 			
 		// apparent
 		apparentp = ps_temp.rms[VOLTAGE_ADC_CHANNEL] * ps_temp.rms[channel];
 		ps_temp.apparent[channel] = (float)apparentp; // *** calibrate
 		
+		
+		if(channel == VOLTAGE_ADC_CHANNEL){ 
+			apparentp = (float)apparentp * FAKE_VOLTAGE_POWER_ADJUST;
+			ps_temp.apparent[channel] = apparentp;
+		}
+		
+		
 		// power factor
-		ps_temp.pf[channel] = (float)realp/(float)apparentp; // *** calibrate
+		ps_temp.power_factor[channel] = (float)realp/(float)apparentp;
+		
 		
 	}	
 		
@@ -422,15 +451,27 @@ void power_from_ADC(uint16* buf)
 	//
 	if(ic.enable){
 		
+		//
+		// TBD - how to combine cycle length errors ***
+		// combine cycle error test above with voltage timer error
+    //uint8      	voltage_cycle_timer_error; // checks AC cycle length
+    //uint8      	voltage_cycle_length_error; // checks AC cycle length
+		// ps_temp.voltage_cycle_timer_error
+		ps_temp.voltage_cycle_length_error = cycle_error;
+
 		
 		ps_temp.voltage_freq = (float)(100000.0f/(float)ps_temp.voltage_cycle_time);
 		
 		
-		// for debug, read back trip levels
+		// for debug, read back command settings
 		for(i = 0;i < PDP_RELAY_CHANNELS;i++){
 			ps_temp.trip_level[i] = pc.trip_level[i];
+			ps_temp.ical[i] = pc.ical[i];
 		}
-	
+		ps_temp.vcal = pc.vcal;
+		ps_temp.vphase = pc.vphase;
+
+
 		
 		// output status struct
 		// transfer ps_temp to ps
@@ -438,8 +479,10 @@ void power_from_ADC(uint16* buf)
 		transfer_metrics_to_status();
 		
 		
+		
+		
 		// test for zero crossing or cycle length error before grabbing
-		if(!error){
+		if(!cycle_error){
 		
 			
 			// capture data beginning at cycle start

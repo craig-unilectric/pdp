@@ -132,8 +132,12 @@ int main(void)
 	pc.channel_number = 0;
 	
 	for(i = 0;i < PDP_RELAY_CHANNELS;i++){
-		pc.trip_level[i] = 0.0;
+		pc.trip_level[i] = TRIP_DEFAULT_AMPS;
+		pc.ical[i] = ICAL_AMPS_PER_VOLT_DEFAULT;
 	}
+	
+	pc.vcal = VCAL_VOLTS_PER_VOLT_DEFAULT;
+	pc.vphase = VPHASE_DEFAULT;
 	
 
 	//
@@ -146,8 +150,8 @@ int main(void)
 		ps_temp.rms[i] = 0;		
 		ps_temp.real[i] = 0;		
 		ps_temp.apparent[i] = 0;	
-		ps_temp.pf[i] = 0;	
-    ps_temp.relay_state[i] = 0;	// *** read state from flash?
+		ps_temp.power_factor[i] = 0;	
+    ps_temp.relay_state[i] = 0;	// *** read state from flash or relay auxiliary contacts?
 	}
 	
 	//

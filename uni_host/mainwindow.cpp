@@ -57,7 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // init icon display
     ui->frame_icon->setFrameStyle(QFrame::StyledPanel);
-    ui->frame_icon->setStyleSheet("background-image: url(C:/Unilectric/processor/uni_host/Uni_mini_131x131.jpg)");
+    //ui->frame_icon->setStyleSheet("background-image: url(C:/Unilectric/processor/uni_host/Uni_mini_131x131.jpg)");
+    ui->frame_icon->setStyleSheet("background-image: url(C:/Unilectric/Git/uni_host/Uni_mini_131x131.jpg)");
 
 
 

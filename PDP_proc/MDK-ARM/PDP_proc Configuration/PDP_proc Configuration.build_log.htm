@@ -13,14 +13,16 @@ compiling uni_power.c...
         float offset_test;
 ..\Src\uni_power.c(148): warning:  #550-D: variable "best_offset" was set but never used
         float best_offset;
-..\Src\uni_power.c(188): warning:  #177-D: variable "cross_down" was declared but never referenced
+..\Src\uni_power.c(189): warning:  #177-D: variable "cross_down" was declared but never referenced
         bool cross_down = false;
-..\Src\uni_power.c(266): warning:  #550-D: variable "vcycle_end" was set but never used
+..\Src\uni_power.c(264): warning:  #550-D: variable "vcycle_end" was set but never used
         uint32 vcycle_start, vcycle_end;
-..\Src\uni_power.c: 4 warnings, 0 errors
+..\Src\uni_power.c(265): warning:  #550-D: variable "icycle_end" was set but never used
+        uint32 icycle_start, icycle_end;
+..\Src\uni_power.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=22400 RO-data=456 RW-data=48 ZI-data=140080  
-"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 4 Warning(s).
+Program Size: Code=22860 RO-data=456 RW-data=48 ZI-data=140296  
+"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 5 Warning(s).
 Load "PDP_proc Configuration\\PDP_proc Configuration.axf" 
 Erase Done.
 Programming Done.
@@ -29,17 +31,17 @@ Application running ...
 </pre>
 </body>
 </html>
-ors
-compiling uni_power.c...
-..\Src\uni_power.c(146): warning:  #177-D: variable "offset_test" was declared but never referenced
+
         float offset_test;
 ..\Src\uni_power.c(148): warning:  #550-D: variable "best_offset" was set but never used
         float best_offset;
-..\Src\uni_power.c(188): warning:  #177-D: variable "cross_down" was declared but never referenced
+..\Src\uni_power.c(189): warning:  #177-D: variable "cross_down" was declared but never referenced
         bool cross_down = false;
-..\Src\uni_power.c(266): warning:  #550-D: variable "vcycle_end" was set but never used
+..\Src\uni_power.c(264): warning:  #550-D: variable "vcycle_end" was set but never used
         uint32 vcycle_start, vcycle_end;
-..\Src\uni_power.c: 4 warnings, 0 errors
+..\Src\uni_power.c(265): warning:  #550-D: variable "icycle_end" was set but never used
+        uint32 icycle_start, icycle_end;
+..\Src\uni_power.c: 5 warnings, 0 errors
 compiling uni_relay.c...
 compiling uni_uart.c...
 compiling uni_eeprom.c...
@@ -48,8 +50,8 @@ compiling uni_eeprom.c...
 ..\Src\uni_eeprom.c: 1 warning, 0 errors
 compiling uni_voltage.c...
 linking...
-Program Size: Code=22376 RO-data=456 RW-data=48 ZI-data=140080  
-"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 11 Warning(s).
+Program Size: Code=22828 RO-data=456 RW-data=48 ZI-data=140296  
+"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 12 Warning(s).
 Load "PDP_proc Configuration\\PDP_proc Configuration.axf" 
 Erase Done.
 Programming Done.

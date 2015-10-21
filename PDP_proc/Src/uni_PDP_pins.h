@@ -185,17 +185,31 @@ uint32 timerclk = 2 * HAL_RCC_GetPCLK2Freq();
 
 #define VOLTAGE_ZERO_CROSSING_PIN			GPIO_PIN_10
 
+//
+// ADC
+//
+
 #define VOLTAGE_ADC_CHANNEL						0
 
 #define CYCLE_SAMPLES_MIN							800
 #define CYCLE_SAMPLES_DEFAULT					811
 #define CYCLE_SAMPLES_MAX							820
 
+#define ADC_VCC												3.3f
+#define ADC_BITS											12
+#define ADC_COUNTS										(1 << ADC_BITS)
+#define ADC_VOLTS_PER_BIT							((float)ADC_VCC/(float)ADC_COUNTS)
 
+//
+// Calibration defaults
+//
+#define TRIP_DEFAULT_AMPS						1000.0f
+#define ICAL_AMPS_PER_VOLT_DEFAULT	(20.0f/1.0f)
 
+#define VCAL_VOLTS_PER_VOLT_DEFAULT	(170.0f/1.0f)
+#define VPHASE_DEFAULT							10
 
-
-
+#define FAKE_VOLTAGE_POWER_ADJUST	(ICAL_AMPS_PER_VOLT_DEFAULT/VCAL_VOLTS_PER_VOLT_DEFAULT)
 
 
 

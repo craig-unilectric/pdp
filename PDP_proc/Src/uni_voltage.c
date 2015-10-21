@@ -64,6 +64,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   if(GPIO_Pin == VOLTAGE_ZERO_CROSSING_PIN)
   {
 
+			//
+			// *** TBD ***
+			// compare cycle time to defined limits
+			// set ps_temp.voltage_cycle_timer_error flag
+			// set ps_temp.voltage_cycle_length_error flag
+
 			HAL_TIM_Base_Stop(VOLTAGE_TIMER);
 			ps_temp.voltage_cycle_time = __HAL_TIM_GET_COUNTER(VOLTAGE_TIMER);
 			__HAL_TIM_SET_COUNTER(VOLTAGE_TIMER, 0);

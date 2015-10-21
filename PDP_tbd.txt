@@ -1,8 +1,20 @@
 ﻿
 
 PDP TBD
+
+
+Site Controller 
+
+input these values to init PDP
+float	trip_level[16]; // peak amps
+float	ical[16]; // sensor amps/volt
+float	vcal; // sensor (input volts)/(output volts), or (line volts)/(ADC input volts)
+uint32	vphase; // number of ADC samples that voltage input lags current input, resistive load
+
  
  
+
+
 PDP
  
 Mains
@@ -26,3 +38,19 @@ ADC phase shift calibration
  
 firmware
 calibrate V and I and power
+initial relay state?
+ps_temp.relay_state[i] = 0;	// *** read state from flash or relay auxiliary contacts?
+
+add Init Struct, so that control values and initial settings are separate
+example Init Struct values:
+float	ical[16]; // sensor amps/volt
+float	vcal; // sensor (input volts)/(output volts), or (line volts)/(ADC input volts)
+uint32	vphase; // number of ADC samples that voltage input lags current input, resistive load
+
+
+
+PCB design
+add pulldown to ADC input to detect empty channels (no relay board)
+
+
+
