@@ -162,6 +162,10 @@ void power_from_ADC(uint16* buf)
 			filt_new = adc_new - offset_new;	
 			// save for next calculation
 			offset_prev[channel] = offset_new;
+			//
+			// another approach - find best offset
+			// init value
+			if(i == 0) best_offset = offset_new;
 			//-----------------------------
 			// write filtered back to dma buf
 			dma_buf_filtered[index] = (int16)(filt_new); 
@@ -175,7 +179,9 @@ void power_from_ADC(uint16* buf)
 				best_offset = offset_new;
 			}
 		}
-		ps_temp.dc[channel] = (float)offset_new * ADC_VOLTS_PER_BIT;  // *** calibrate
+		// save vaue from either approach
+		//ps_temp.dc[channel] = (float)offset_new * ADC_VOLTS_PER_BIT;  // *** calibrate
+		ps_temp.dc[channel] = (float)best_offset * ADC_VOLTS_PER_BIT;  // *** calibrate
 			
 	}
 	//---------------------------------------------------
@@ -191,7 +197,7 @@ void power_from_ADC(uint16* buf)
 	//
 	// compare two sequential adc values to determine if sine signal is crossing zero
 	// filter the sine signal by comparing distant values in sequence
-	uint32 filtersize = 10; // distance between samples
+	uint32 filtergap = 10; // distance between samples
 	//
 	// start buf index past 0 
 	// so that there is room to shift voltage cycle 
@@ -200,10 +206,10 @@ void power_from_ADC(uint16* buf)
 	// max extra room to shift = 2000 - 1620 = 380 = 1/2 cycle
 	uint32 max_voltage_shift = 200;
 	// first zero crossing
-		channel = VOLTAGE_ADC_CHANNEL; // 2
+		channel = VOLTAGE_ADC_CHANNEL;
 		//
-		for(i = filtersize + max_voltage_shift;i < (ADC_DMA_SAMPLES_PER_CHANNEL - CYCLE_SAMPLES_MAX);i++){
-			index = channel + ((i - filtersize) * ADC_DMA_CHANNELS);
+		for(i = filtergap + max_voltage_shift;i < (ADC_DMA_SAMPLES_PER_CHANNEL - CYCLE_SAMPLES_MAX);i++){
+			index = channel + ((i - filtergap) * ADC_DMA_CHANNELS);
 			prev = (int16)dma_buf_filtered[index];
 			index = channel + (i * ADC_DMA_CHANNELS);	
 			val16i = (int16)dma_buf_filtered[index];
@@ -225,7 +231,7 @@ void power_from_ADC(uint16* buf)
 		{
 			i += CYCLE_SAMPLES_MIN; 
 			for(;i < ADC_DMA_SAMPLES_PER_CHANNEL;i++){
-				index = channel + ((i - filtersize) * ADC_DMA_CHANNELS);
+				index = channel + ((i - filtergap) * ADC_DMA_CHANNELS);
 				prev = (int16)dma_buf_filtered[index];
 				index = channel + (i * ADC_DMA_CHANNELS);	
 				val16i = (int16)dma_buf_filtered[index];
@@ -268,7 +274,7 @@ void power_from_ADC(uint16* buf)
 	vcycle_end = cycle_end;
 			
 	// must be less than max_voltage_shift
-	uint32 v_phase_shift_samples_count = ps_temp.vphase; //100; // *** calibrate, input from Site Controller
+	uint32 v_phase_shift_samples_count = ps_temp.vphase; // *** input from Site Controller
 	
 	// shift i to right to match delayed v
 	icycle_start = cycle_start - v_phase_shift_samples_count;
@@ -318,6 +324,109 @@ void power_from_ADC(uint16* buf)
 	*/
 	//---------------------------------------------------
 	//
+	// Noise filter
+	// 
+	// Note: make sure there is room in the input buffer 
+	// to sample values in a window that extends 
+	// outside of the cycle range
+	//
+	#define NOISE_FILTER_SIZE	32
+	uint32 filtersize = NOISE_FILTER_SIZE; // even number > 0
+	int32 filtersum;
+	float filteravg;
+	int32 val[NOISE_FILTER_SIZE];
+	uint32 fi, first, last;
+	uint32 jj;
+	uint32 index2;
+
+	for(channel = 0;channel < ADC_DMA_CHANNELS;channel++){
+		// v cycle or i cycle, using phase shifted voltage index
+		if(channel == VOLTAGE_ADC_CHANNEL) cycle_start = vcycle_start;
+		else cycle_start = icycle_start;
+		cycle_end = cycle_start + cycle_length;
+		//
+		// init filter
+		fi = 0;
+		i = cycle_start - 1;
+		filtersum = 0;
+		for(jj = (i - (filtersize >> 1));jj < (i + (filtersize >> 1));jj++){
+			index2 = channel + (jj * ADC_DMA_CHANNELS);			
+			val16i = (int16)dma_buf_filtered[index2];
+			val[fi] = val16i;
+			fi++;
+			filtersum += val16i;
+		}
+		first = 0;
+		last = filtersize - 1;
+		//
+		i = cycle_start;
+		jj = (i + (filtersize >> 1));
+		for(i = cycle_start;i < cycle_end;i++){
+			index = channel + (i * ADC_DMA_CHANNELS);	
+			val16i = (int16)dma_buf_filtered[index];
+			//-----------------------------
+			
+			// subtract old value
+			filtersum -= val[first];
+			
+			// too slow
+			// change to mod() 
+			// or fmod() to use FPU?
+			first++;
+			if(first >= filtersize) first = 0;
+			last++;
+			if(last >= filtersize) last = 0;
+			
+			// sum new value
+			index2 = channel + (jj * ADC_DMA_CHANNELS);
+			jj++;
+			val16i = (int16)dma_buf_filtered[index2];
+			filtersum += val16i;
+			// save new value
+			val[last] = val16i;
+
+			// slow 
+			// change to FPU command
+			filteravg = ((float)filtersum/(float)filtersize); 
+			
+			//
+			//-----------------------------
+			// write filtered back to dma buf
+			dma_buf_filtered[index] = (int16)(filteravg); 		
+		}
+		
+	}	
+	//
+	/*
+	// simple slow version
+	uint8 filtersize = 32; // even number > 0
+	int32 filtersum;
+	int32 filteravg;
+	uint32 jj, index2;	
+	for(channel = 0;channel < ADC_DMA_CHANNELS;channel++){
+		// v cycle or i cycle, using phase shifted voltage index
+		if(channel == VOLTAGE_ADC_CHANNEL) cycle_start = vcycle_start;
+		else cycle_start = icycle_start;
+		cycle_end = cycle_start + cycle_length;
+		for(i = cycle_start;i < cycle_end;i++){
+			index = channel + (i * ADC_DMA_CHANNELS);			
+			val16i = (int16)dma_buf_filtered[index];
+			//-----------------------------
+			filtersum = 0;
+			for(jj = (i - (filtersize >> 1));jj < (i + (filtersize >> 1));jj++){
+				index2 = channel + (jj * ADC_DMA_CHANNELS);			
+				val16i = (int16)dma_buf_filtered[index2];
+				filtersum += val16i;
+			}
+			filteravg = filtersum/filtersize;
+			//-----------------------------
+			// write filtered back to dma buf
+			dma_buf_filtered[index] = (int16)(filteravg); 		
+		}
+	}	
+	*/
+	//---------------------------------------------------
+	//
 	// RMS
 	// rms from filtered data
 	// rms is calculated over a single AC cycle
@@ -332,10 +441,12 @@ void power_from_ADC(uint16* buf)
 	double rms;
 	float ratio;
 	float vratio = pc.vcal * ADC_VOLTS_PER_BIT;
+	int32 sum, avg; // debugging offset
 		
 	for(channel = 0;channel < ADC_DMA_CHANNELS;channel++){
 		max = 0;	
 		sq_sum = 0;
+		sum = 0; // debugging offset
 		// v cycle or i cycle, using phase shifted voltage index
 		if(channel == VOLTAGE_ADC_CHANNEL) cycle_start = vcycle_start;
 		else cycle_start = icycle_start;
@@ -350,6 +461,9 @@ void power_from_ADC(uint16* buf)
 			// i_rms[]
 			sq = val16 * val16;
 			sq_sum += sq;	
+			//
+			// debugging offset
+			sum += val16i;
 		}
 		// pk[]
 		
@@ -367,9 +481,18 @@ void power_from_ADC(uint16* buf)
 		// sqrt() - 60 cycles
 		rms = sqrtf(ms); 
 		ps_temp.rms[channel] = (float)rms * ratio; // *** calibrate
-			
+		//
+		/*
+		// debugging offset
+		if(channel == 2){
+			sum = (int32)fabsf((float)sum);
+			avg = sum/cycle_length;
+			ps_temp.debug1 = (float)avg;
+			ps_temp.debug2 = ps_temp.dc[channel];
+		}
+		*/
 	}	
-	
+		
 	//---------------------------------------------------
 	//
 	// Power
@@ -393,7 +516,6 @@ void power_from_ADC(uint16* buf)
 	float iratio;
 	
 
-	// TBD process current channels only
 	for(channel = 0;channel < ADC_DMA_CHANNELS;channel++){
 		j = vcycle_start; // phase shifted voltage index;
 		instp_sum = 0;

@@ -40,7 +40,9 @@ https://www.keil.com/demo/eval/arm.htm
 ST-Link USB driver signed for XP, Windows7, Windows8
 http://www.st.com/web/en/catalog/tools/FM147/SC1887/PF260219
 
-
+JTAG tools
+http://www.st.com/web/catalog/tools/FM146/CL1984/SC724/SS1677/PF251168?sc=internet/evalboard/product/251168.jsp
+http://www.st.com/web/en/catalog/tools/PF258168
 
 
 User interface

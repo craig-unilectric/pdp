@@ -26,24 +26,6 @@ Programming the PDP - use the ST-Link/V2 jtag programmer
 Windows/Linux VCP USB-serial bridge (SiLab CP2102) driver - may be included already in windows and linux
 
 
-Input these values to init PDP
-
-In the Command Struct:
-// peak amps
-float trip_level[16]; 
-// sensor amps/volt
-float ical[16]; 
-// sensor (input volts)/(output volts), or (line volts)/(ADC input volts)
-float vcal; 
-// number of ADC samples that voltage input lags current input, resistive load
-uint32 vphase; 
-
-The same values are written back to the Status Struct to verify settings:
-trip_level[16];
-ical[16];
-vcal; 
-vphase;
-
 
 https://github.com/craig-unilectric/pdp
 

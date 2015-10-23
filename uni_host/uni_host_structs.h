@@ -17,7 +17,6 @@ user structs
 //---------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------
 //
-	 
 
 
 typedef struct
@@ -30,13 +29,11 @@ typedef struct
     uint8       dummy_3;
 		//
 		float    		trip_level[16]; // peak amps
-		//
 		float    		ical[16]; // sensor amps/volt
-		//
 		float    		vcal; // sensor (input volts)/(output volts), or (line volts)/(ADC input volts)
 		uint32    	vphase; // number of ADC samples that voltage input lags current input, resistive load
+		//uint16    	phase_polarity[16]; // n samples to adjust for two-phase, 0xfnnn = invert
 		//
-	
 	
 }PDP_Command_Struct;
 
@@ -78,10 +75,11 @@ typedef struct
     uint32      debug2;
 		//
 		// debug - read back the values sent from the Site Controller
-		float    		trip_level[16]; // to read back trip level
-		float    		ical[16]; // to read back ical
+		float    		trip_level[16]; // to read back trip_level[]
+		float    		ical[16]; // to read back ical[]
 		float    		vcal; // to read back vcal
 		uint32    	vphase; // to read back vphase
+		//uint16      phase_polarity[16]; // to read back phase_polarity[]
 		//
 		
 }PDP_Status_Struct;

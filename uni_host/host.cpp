@@ -63,6 +63,7 @@ Host::Host(QWidget *ParentMainWin, USB_VCP *usbObj) :
     connect(ui->pushButton_read_AC, SIGNAL(clicked()), this, SLOT(read_channelDMA()));
     ui->pushButton_read_AC->setVisible(false);
     connect(ui->pushButton_read_AC_filtered, SIGNAL(clicked()), this, SLOT(read_channelDMA_filtered()));
+
     connect(ui->pushButton_write_command, SIGNAL(clicked()), this, SLOT(write_command()));
     connect(ui->pushButton_read_status, SIGNAL(clicked()), this, SLOT(read_status()));
 

@@ -159,27 +159,12 @@ void Host::read_status(void)
     Log("");
 
     for(int i = 0;i < 16;i++){
-        Log("     i_dc[]: " + IntToStr(i) + " - " + IntToStr(ps.dc[i]));
-
+        //Log("     i_dc[]: " + IntToStr(i) + " - " + IntToStr(ps.dc[i]));
+        Log("     trip_level[" + IntToStr(i) + "]: " + IntToStr(ps.trip_level[i]));
     }
 
 
     /*
-    Log("one: " + IntToHex(ps.one));
-    Log("two: " + IntToHex(ps.two));
-    Log("three");
-    Log("     " + IntToHex(ps.three[0]));
-    Log("     " + IntToHex(ps.three[1]));
-    Log("     " + IntToHex(ps.three[2]));
-    Log("     " + IntToHex(ps.three[3]));
-    Log("     " + IntToHex(ps.three[4]));
-    Log("     " + IntToHex(ps.three[5]));
-    Log("     " + IntToHex(ps.three[6]));
-    Log("     " + IntToHex(ps.three[7]));
-    Log("four: " + IntToHex(ps.four));
-    Log("five: " + IntToHex(ps.five));
-    Log("six: " + IntToHex(ps.six));
-    Log("seven: " + IntToHex(ps.seven));
     Log("val32: " + IntToHex(ps.val32));
     */
     Log("");
@@ -190,6 +175,17 @@ void Host::read_status(void)
 
 void Host::write_command(void)
 {
+
+
+    for(int i = 0;i < 16;i++){
+        pc.trip_level[i] = i + 1000;
+    }
+
+    pdp_write_command_struct();
+
+
+
+
 
     /*
     pc.one = 0x98;
@@ -208,8 +204,6 @@ void Host::write_command(void)
     pc.seven = 0x9876;
     pc.val32 = 0x12345678;
     */
-    pdp_write_command_struct();
-
 
 }
 

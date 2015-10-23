@@ -60,7 +60,7 @@ bool pdp_read_status_struct(void)
 {
     uint32 size = sizeof(PDP_Status_Struct);
 
-    FC_stop();
+    //FC_stop();
 
     if(!FC_read(FC_COM_RD_STATUS_STRUCT, size, (uint8*)&ps)) return 0;
 

@@ -11,18 +11,20 @@ Build target 'PDP_proc Configuration'
 compiling uni_power.c...
 ..\Src\uni_power.c(146): warning:  #177-D: variable "offset_test" was declared but never referenced
         float offset_test;
-..\Src\uni_power.c(148): warning:  #550-D: variable "best_offset" was set but never used
-        float best_offset;
-..\Src\uni_power.c(189): warning:  #177-D: variable "cross_down" was declared but never referenced
+..\Src\uni_power.c(195): warning:  #177-D: variable "cross_down" was declared but never referenced
         bool cross_down = false;
-..\Src\uni_power.c(264): warning:  #550-D: variable "vcycle_end" was set but never used
+..\Src\uni_power.c(270): warning:  #550-D: variable "vcycle_end" was set but never used
         uint32 vcycle_start, vcycle_end;
-..\Src\uni_power.c(265): warning:  #550-D: variable "icycle_end" was set but never used
+..\Src\uni_power.c(271): warning:  #550-D: variable "icycle_end" was set but never used
         uint32 icycle_start, icycle_end;
-..\Src\uni_power.c: 5 warnings, 0 errors
+..\Src\uni_power.c(444): warning:  #177-D: variable "avg" was declared but never referenced
+        int32 sum, avg; // debugging offset
+..\Src\uni_power.c(148): warning: C4017W: best_offset may be used before being set
+        float best_offset;
+..\Src\uni_power.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=22860 RO-data=456 RW-data=48 ZI-data=140296  
-"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 5 Warning(s).
+Program Size: Code=23056 RO-data=456 RW-data=48 ZI-data=140296  
+"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 6 Warning(s).
 Load "PDP_proc Configuration\\PDP_proc Configuration.axf" 
 Erase Done.
 Programming Done.
@@ -31,29 +33,95 @@ Application running ...
 </pre>
 </body>
 </html>
-
-        float offset_test;
-..\Src\uni_power.c(148): warning:  #550-D: variable "best_offset" was set but never used
-        float best_offset;
-..\Src\uni_power.c(189): warning:  #177-D: variable "cross_down" was declared but never referenced
-        bool cross_down = false;
-..\Src\uni_power.c(264): warning:  #550-D: variable "vcycle_end" was set but never used
-        uint32 vcycle_start, vcycle_end;
-..\Src\uni_power.c(265): warning:  #550-D: variable "icycle_end" was set but never used
-        uint32 icycle_start, icycle_end;
-..\Src\uni_power.c: 5 warnings, 0 errors
-compiling uni_relay.c...
-compiling uni_uart.c...
-compiling uni_eeprom.c...
-..\Src\uni_eeprom.c(55): warning:  #186-D: pointless comparison of unsigned integer with zero
-        if((channel >= 0) && (channel <= 7)){   
-..\Src\uni_eeprom.c: 1 warning, 0 errors
-compiling uni_voltage.c...
-linking...
-Program Size: Code=22828 RO-data=456 RW-data=48 ZI-data=140296  
-"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 12 Warning(s).
+ation.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+c Configuration\\PDP_proc Configuration.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+ata=140296  
+"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 10 Warning(s).
 Load "PDP_proc Configuration\\PDP_proc Configuration.axf" 
 Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
+ion running ...
+#177-D: variable "index2" was declared but never referenced
+        uint32 index2;
+..\Src\uni_power.c(435): warning:  #177-D: variable "avg" was declared but never referenced
+        int32 sum, avg; // debugging offset
+..\Src\uni_power.c(148): warning: C4017W: best_offset may be used before being set
+        float best_offset;
+..\Src\uni_power.c: 15 warnings, 0 errors
+linking...
+Program Size: Code=22872 RO-data=456 RW-data=48 ZI-data=140296  
+"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 15 Warning(s).
+Load "PDP_proc Configuration\\PDP_proc Configuration.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+ 
+"PDP_proc Configuration\PDP_proc Configuration.axf" - 0 Error(s), 17 Warning(s).
+Load "PDP_proc Configuration\\PDP_proc Configuration.axf" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+down" was declared but never referenced
+        bool cross_down = false;
+..\Src\uni_power.c(270): warning:  #550-D: variable "vcycle_end" was set but never used
+        uint32 vcycle_start, vcycle_end;
+..\Src\uni_power.c(271): warning:  #550-D: variable "icycle_end" was set but never used
+        uint32 icycle_start, icycle_end;
+..\Src\uni_power.c(333): warning:  #177-D: variable "filtersize" was declared but never referenced
+        uint32 filtersize = 32; // even number > 0
+..\Src\uni_power.c(334): warning:  #177-D: variable "filtersum" was declared but never referenced
+        int32 filtersum;
+..\Src\uni_power.c(335): warning:  #177-D: variable "filteravg" was declared but never referenced
+        int32 filteravg;
+..\Src\uni_power.c(336): warning:  #177-D: variable "val" was declared but never referenced
+        int32 val[64];
+..\Src\uni_power.c(337): warning:  #177-D: variable "fi" was declared but never referenced
+        uint32 fi, first, last;
+..\Src\uni_power.c(337): warning:  #177-D: variable "first" was declared but never referenced
+        uint32 fi, first, last;
+..\Src\uni_power.c(337): warning:  #177-D: variable "last" was declared but never referenced
+        uint32 fi, first, last;
+..\Src\uni_power.c(338): warning:  #177-D: variable "jj" was declared but never referenced
+        uint32 jj;
+..\Src\uni_power.c(339): warning:  #177-D: variable "index2" was declared but never referenced
+        uint32 index2;
+..\Src\uni_power.c(435): warning:  #177-D: variable "avg" was declared but never referenced
+        int32 sum, avg; // debugging offset
+..\Src\uni_power.c(148): warning: C4017W: best_offset may be used before being set
+        float best_offset;
+..\Src\uni_power.c: 15 warnings, 0 errors
+"..\Src\uni_power.c" - 0 Error(s), 15 Warning(s).
+alp = realp * iratio * vratio;
+..\Src\uni_power.c(502): error:  #28: expression must have a constant value
+                realp = realp * iratio * vratio;
+..\Src\uni_power.c(503): error:  #77-D: this declaration has no storage class or type specifier
+                ps_temp.real[channel] = (float)realp; // *** calibrate
+..\Src\uni_power.c(503): error:  #65: expected a ";"
+                ps_temp.real[channel] = (float)realp; // *** calibrate
+..\Src\uni_power.c(506): error:  #77-D: this declaration has no storage class or type specifier
+                apparentp = ps_temp.rms[VOLTAGE_ADC_CHANNEL] * ps_temp.rms[channel];
+..\Src\uni_power.c(506): error:  #147: declaration is incompatible with "double apparentp" (declared at line 468)
+                apparentp = ps_temp.rms[VOLTAGE_ADC_CHANNEL] * ps_temp.rms[channel];
+..\Src\uni_power.c(506): error:  #154: expression must have struct or union type
+                apparentp = ps_temp.rms[VOLTAGE_ADC_CHANNEL] * ps_temp.rms[channel];
+..\Src\uni_power.c(506): error:  #154: expression must have struct or union type
+                apparentp = ps_temp.rms[VOLTAGE_ADC_CHANNEL] * ps_temp.rms[channel];
+..\Src\uni_power.c(506): error:  #20: identifier "channel" is undefined
+                apparentp = ps_temp.rms[VOLTAGE_ADC_CHANNEL] * ps_temp.rms[channel];
+..\Src\uni_power.c: 10 warnings, 30 errors
+"PDP_proc Configuration\PDP_proc Configuration.axf" - 30 Error(s), 10 Warning(s).
+Target not created
+onfiguration\PDP_proc Configuration.axf" - 30 Error(s), 11 Warning(s).
+Target not created

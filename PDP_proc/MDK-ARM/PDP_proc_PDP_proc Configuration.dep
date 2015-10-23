@@ -973,7 +973,7 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_uart.h)(0x5609758A)
 I (..\Src\uni_adc.h)(0x55EE0CC0)
@@ -1133,7 +1133,7 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_adc.h)(0x55EE0CC0)
 I (..\Src\uni_power.h)(0x5611BD60)
@@ -1178,12 +1178,12 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_command.h)(0x561D7825)
 I (..\Src\uni_uart.h)(0x5609758A)
 I (..\Src\uni_relay.h)(0x5609FB5E)
-F (..\Src\uni_power.c)(0x5627CB04)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-DUSE_HAL_DRIVER -DSTM32F407xx-o "pdp_proc configuration\uni_power.o" --omf_browse "pdp_proc configuration\uni_power.crf" --depend "pdp_proc configuration\uni_power.d")
+F (..\Src\uni_power.c)(0x562A8678)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-DUSE_HAL_DRIVER -DSTM32F407xx-o "pdp_proc configuration\uni_power.o" --omf_browse "pdp_proc configuration\uni_power.crf" --depend "pdp_proc configuration\uni_power.d")
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x55C90B8D)
 I (..\Inc\stm32f4xx_hal_conf.h)(0x561D9429)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x55C90B8D)
@@ -1222,7 +1222,7 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_power.h)(0x5611BD60)
 I (..\Src\uni_uart.h)(0x5609758A)
@@ -1269,7 +1269,7 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_relay.h)(0x5609FB5E)
 I (..\Src\uni_command.h)(0x561D7825)
@@ -1313,12 +1313,12 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_uart.h)(0x5609758A)
 I (..\Src\uni_command.h)(0x561D7825)
 F (..\..\uni_host\fc_host_commands.h)(0x56098CB5)()
-F (..\..\uni_host\uni_host_structs.h)(0x5627A2C4)()
+F (..\..\uni_host\uni_host_structs.h)(0x562A72A1)()
 F (..\Src\uni_eeprom.c)(0x560864D6)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include --C99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-DUSE_HAL_DRIVER -DSTM32F407xx-o "pdp_proc configuration\uni_eeprom.o" --omf_browse "pdp_proc configuration\uni_eeprom.crf" --depend "pdp_proc configuration\uni_eeprom.d")
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x55C90B8D)
 I (..\Inc\stm32f4xx_hal_conf.h)(0x561D9429)
@@ -1359,7 +1359,7 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_eeprom.h)(0x56033B4E)
 I (..\Src\uni_command.h)(0x561D7825)
@@ -1403,7 +1403,7 @@ I (..\Src\uni_defines.h)(0x56007EDF)
 I (..\Src\uni_types.h)(0x55D79134)
 I (..\Src\uni_memory.h)(0x561AD9FA)
 I (..\Src\..\..\uni_host\fc_host_commands.h)(0x56098CB5)
-I (..\Src\..\..\uni_host\uni_host_structs.h)(0x5627A2C4)
+I (..\Src\..\..\uni_host\uni_host_structs.h)(0x562A72A1)
 I (..\Src\uni_PDP_pins.h)(0x5627CA8F)
 I (..\Src\uni_voltage.h)(0x5615850D)
 I (..\Src\uni_command.h)(0x561D7825)
